@@ -3,29 +3,37 @@ import java.util.Scanner;
 public class PE_04CasconFernando {
     Scanner sc = new Scanner(System.in);
     int lightsMenu = 0;
+    int lightChoice = 0;
+    String livingRoom = "off";
+    String restRoom = "off";
+    String kitchen = "off";
+    String room1 = "off";
+    String room2 = "off";
+    String room3 = "off";
     public static void main(String[] args) {
         PE_04CasconFernando p = new PE_04CasconFernando();
         p.principal();
     }
 
     public void principal(){
-        int houseOptions = 0;
-        int temperatureOptions = 0;
-        String temperatureStatus = "off";
-        int currentTemperature = 20;
-        int tempLivingRoom = 20;
-        int tempRestroom = 20;
-        int tempKitchen = 20;
-        int tempRoom1 = 20;
-        int tempRoom2 = 20;
-        int tempRoom3 = 20;
-        boolean validation = true;
-        int roomChoice = 0;
-        String blindsMenu = "";
-        String blindState = "";
+        boolean validation = true;              //bucles variable
+        int houseOptions = 0;                   //menu variables
+        int temperatureOptions = 0;             //
+        int roomChoice = 0;                     //
+        String temperatureStatus = "off";       //variables for temperature
+        int currentTemperature = 20;            //        
+        int tempLivingRoom = 20;                //
+        int tempRestroom = 20;                  //
+        int tempKitchen = 20;                   //
+        int tempRoom1 = 20;                     //
+        int tempRoom2 = 20;                     //
+        int tempRoom3 = 20;                     //
+        String blindsMenu = "";                 //variables for blinds
+        String blindState = "";                 //
 
 
         System.out.println("Welcome!");
+        //when the option is 4 you exit of the main menu
         do {
             while (validation) {
                 System.out.println("Please, choose your desired option:");
@@ -46,10 +54,11 @@ public class PE_04CasconFernando {
                     sc.nextLine();
                 }
             }
-
+            //reset of validation for the next time 
             validation = true;
             switch (houseOptions) {
                 case 1:
+                //temperature control
                     do {
                         while (validation) {
                             System.out.println("Temperature menu:");
@@ -79,20 +88,27 @@ public class PE_04CasconFernando {
                     
                         switch (temperatureOptions) {
                             case 1:
-                                temperatureStatus = toggleTemperature();
+                            //turn on/off temperature
+                                temperatureStatus = toggleState();
+                                System.out.println("Temperature system turned " + temperatureStatus);
                             break;
 
                             case 2:
+                            //control all the house
                                 if (temperatureStatus.equalsIgnoreCase("off")) {
                                     System.out.println("System is off, turn it on first");
 
                                 } else {
+                                    //variable for the new temperature
                                     currentTemperature = updateTemperature(currentTemperature);
 
+                                    //if temperature is higher than 9, that means that the user putted the temperature itself,
+                                    //so we change the temperature of all the rooms to the same
                                     if (currentTemperature > 9) {
                                         tempLivingRoom = tempRestroom = tempKitchen = tempRoom1 =  tempRoom2 = tempRoom3 = currentTemperature;
 
                                     } else {
+                                        //if not, we adjust the temperature by +1,+2,-1,-2
                                         tempLivingRoom += currentTemperature;
                                         tempRestroom += currentTemperature;
                                         tempKitchen += currentTemperature;
@@ -105,6 +121,7 @@ public class PE_04CasconFernando {
                             break;
 
                             case 3:
+                            //adjust single room
                                 if (temperatureStatus.equalsIgnoreCase("off")) {
                                     System.out.println("System is off, turn it on first");
 
@@ -112,8 +129,10 @@ public class PE_04CasconFernando {
                                     roomChoice = roomChoice();
                                     currentTemperature = updateTemperature(currentTemperature);
 
+                                    //adjust manually the change of every room
                                     switch (roomChoice) {
                                         case 1:
+                                            //same logic as before
                                             if (currentTemperature > 9) {
                                                 tempLivingRoom = currentTemperature;
 
@@ -178,12 +197,13 @@ public class PE_04CasconFernando {
                             break;
 
                             case 4:
-                                System.out.println("Living Room: " + tempLivingRoom);
-                                System.out.println("Rest Room: " + tempRestroom);
-                                System.out.println("Kitchen: " + tempKitchen);
-                                System.out.println("Room 1: " + tempRoom1);
-                                System.out.println("Room 2: " + tempRoom2);
-                                System.out.println("Room 3: " + tempRoom3);
+                            //Show the temperature of every room
+                                System.out.println("Living Room: " + tempLivingRoom + "ºC");
+                                System.out.println("Rest Room: " + tempRestroom + "ºC");
+                                System.out.println("Kitchen: " + tempKitchen + "ºC");
+                                System.out.println("Room 1: " + tempRoom1 + "ºC");
+                                System.out.println("Room 2: " + tempRoom2 + "ºC");
+                                System.out.println("Room 3: " + tempRoom3 + "ºC");
                             break;
 
                             case 5:
@@ -248,7 +268,8 @@ public class PE_04CasconFernando {
 
                         switch (lightsMenu) {
                             case 1:
-                                roomChoice = roomChoice();
+                                lightChoice = roomChoice();
+                                lightsState(lightChoice);
                             break;
                         }
 
@@ -264,10 +285,11 @@ public class PE_04CasconFernando {
     }
 
     public int roomChoice() {
+        //method for room selection
         int room = 0;
         do {
             System.out.println("Choose a room: ");
-            System.out.println("  1. Living Room.\n  2. Restroom.\n  3. Kitchen.\n  4. Room 1.\n  5. Room 2.\n  6. Room 3");
+            System.out.println("1. Living Room.\n2. Restroom.\n3. Kitchen.\n4. Room 1.\n5. Room 2.\n6. Room 3");
 
             try {
                 room = sc.nextInt();
@@ -286,21 +308,20 @@ public class PE_04CasconFernando {
         return room;
     }
 
+    //Turn on/off function
+    public String toggleState() {
+        String state;
+        do {
+            System.out.print("Please, choose your option (on/off): ");
+            state = sc.nextLine();
+        } while (state.equals("on") &&  state.equals("off"));
+
+        return state;
+    }
+
     /***********************
     TEMPERATURE FUNCTIONS
     ***********************/
-
-    //Turn on/off termostat
-    public String toggleTemperature() {
-        String temperatureStatus;
-        do {
-            System.out.print("Please, choose your option (on/off): ");
-            temperatureStatus = sc.nextLine();
-        } while (!temperatureStatus.equals("on") && !temperatureStatus.equals("off"));
-
-        System.out.println("Temperature system turned " + temperatureStatus);
-        return temperatureStatus;
-    }
 
     //increase or decrease temperature
     public int temperatureMenu() {
@@ -320,14 +341,14 @@ public class PE_04CasconFernando {
                 sc.nextLine();
 
                 if (option < 1 || option > 5) {
-                    System.out.println("Error, insert a valid option");
+                    System.out.println("Error, insert a valid option.");
 
                 } else {
                     validation = false;
                 }
 
             } catch (InputMismatchException e) {
-                System.out.println("Error, insert a valid format");
+                System.out.println("Error, insert a valid format.");
                 sc.nextLine();
             }
         }
@@ -360,6 +381,7 @@ public class PE_04CasconFernando {
         return currentTemperature;
     }
 
+    //method for the case where user insert the temperature manually
     public int insertTemperature() {
         int currentTemperature = 0;
 
@@ -399,7 +421,52 @@ public class PE_04CasconFernando {
     /***********************
     LIGHTS FUNCTIONS
     ***********************/
+    public String lightState() {
+        String state = "";
+        System.out.println("");
+        return state;
+    }
 
+    public void lightsState(int roomChoice) {
+        String state = toggleState();
+        String room = "";
+
+            switch (roomChoice) {
+                case 1: 
+                    livingRoom = state;
+                    room = "Living Room";
+                break;
+
+                case 2: 
+                    restRoom = state;
+                    room = "Rest Room";
+                break;
+
+                case 3: 
+                    kitchen = state;
+                    room = "Kitchen";
+                break;
+
+                case 4: 
+                    room1= state;
+                    room = "Room 1";
+                break;
+
+                case 5: 
+                    room2 = state;
+                    room = "Room 2";
+                break;
+
+                case 6: 
+                    room3 = state;
+                    room = "Room 3";
+                break;
+
+                default:
+                    System.out.println("Room " + room + " turned " + state + " correctly.");
+                break;
+            }
+    }
 
 
 }
