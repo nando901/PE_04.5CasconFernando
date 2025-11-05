@@ -10,6 +10,7 @@ public class PE_04CasconFernando {
     String room1 = "off";
     String room2 = "off";
     String room3 = "off";
+    
     public static void main(String[] args) {
         PE_04CasconFernando p = new PE_04CasconFernando();
         p.principal();
@@ -271,6 +272,10 @@ public class PE_04CasconFernando {
                                 lightChoice = roomChoice();
                                 lightsState(lightChoice);
                             break;
+
+                            case 2:
+
+                            break;
                         }
 
                     } while (lightsMenu != 4);
@@ -430,42 +435,79 @@ public class PE_04CasconFernando {
     public void lightsState(int roomChoice) {
         String state = toggleState();
         String room = "";
+        boolean comprovation = false;
 
-            switch (roomChoice) {
-                case 1: 
-                    livingRoom = state;
-                    room = "Living Room";
-                break;
+        switch (roomChoice) {
+            case 1: 
+                if (livingRoom == state) {
+                    comprovation = true;
+                }
+                livingRoom = state;
+                room = "Living Room";
+            break;
 
-                case 2: 
-                    restRoom = state;
-                    room = "Rest Room";
-                break;
+            case 2: 
+                if (restRoom == state) {
+                    comprovation = true;
+                }
+                restRoom = state;
+                room = "Rest Room";
+            break;
 
-                case 3: 
-                    kitchen = state;
-                    room = "Kitchen";
-                break;
+            case 3: 
+                if (kitchen == state) {
+                    comprovation = true;
+                }
+                kitchen = state;
+                room = "Kitchen";
+            break;
 
-                case 4: 
-                    room1= state;
-                    room = "Room 1";
-                break;
+            case 4:
+                if (room1 == state) {
+                    comprovation = true;
+                }
+                room1= state;
+                room = "Room 1";
+            break;
 
-                case 5: 
-                    room2 = state;
-                    room = "Room 2";
-                break;
+            case 5: 
+                if (room2 == state) {
+                    comprovation = true;
+                }
+                room2 = state;
+                room = "Room 2";
+            break;
 
-                case 6: 
-                    room3 = state;
-                    room = "Room 3";
-                break;
+            case 6:
+                if (room3 == state) {
+                    comprovation = true;
+                }
+                room3 = state;
+                room = "Room 3";
+            break;
 
-                default:
-                    System.out.println("Room " + room + " turned " + state + " correctly.");
-                break;
-            }
+            default:
+                if (comprovation) {
+                    System.out.println(room + " has already the lights " + state);
+                } else {    
+                    System.out.println(room + " turned " + state + " correctly.");
+                }
+            break;
+        }
+    }
+
+    public static void allRooms() {
+        System.out.println("ii. Manual - turn on or turn off (on/off): ");
+        allLights = sc.nextLine();
+        System.out.println("All rooms turned " + allLights + " correctly.");
+
+        livingRoom = allLights;
+        restroom = allLights;
+        kitchen = allLights;
+        room1 = allLights;
+        room2 = allLights;
+        room3 = allLights;
+        
     }
 
 
