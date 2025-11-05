@@ -92,7 +92,7 @@ public class PE_04CasconFernando {
                             //turn on/off temperature
                                 temperatureStatus = toggleState();
                                 System.out.println("Temperature system turned " + temperatureStatus);
-                            break;
+                                break;
 
                             case 2:
                             //control all the house
@@ -119,7 +119,7 @@ public class PE_04CasconFernando {
                                     }   
 
                                 }
-                            break;
+                                break;
 
                             case 3:
                             //adjust single room
@@ -134,31 +134,31 @@ public class PE_04CasconFernando {
                                     switch (roomChoice) {
                                         case 1:
                                             tempLivingRoom = changeTemperature(currentTemperature, tempLivingRoom);
-                                        break;
+                                            break;
 
                                         case 2:
                                             tempRestroom = changeTemperature(currentTemperature, tempRestroom);
-                                        break;
+                                            break;
 
                                         case 3:
                                             tempKitchen = changeTemperature(currentTemperature, tempKitchen);
-                                        break;
+                                            break;
 
                                         case 4:
                                             tempRoom1 = changeTemperature(currentTemperature, tempRoom1);
-                                        break;
+                                            break;
 
                                         case 5:
                                             tempRoom2 = changeTemperature(currentTemperature, tempRoom2);
-                                        break;
+                                            break;
 
                                         case 6:
                                             tempRoom3 = changeTemperature(currentTemperature, tempRoom3);
-                                        break;
+                                            break;
                                     }
                                 }
 
-                            break;
+                                break;
 
                             case 4:
                             //Show the temperature of every room
@@ -168,40 +168,40 @@ public class PE_04CasconFernando {
                                 System.out.println("Room 1: " + tempRoom1 + "ºC");
                                 System.out.println("Room 2: " + tempRoom2 + "ºC");
                                 System.out.println("Room 3: " + tempRoom3 + "ºC");
-                            break;
+                                break;
 
                             case 5:
-                            break;
+                                break;
                         }  
                     } while (temperatureOptions != 6);
-                break;
+                    break;
 
                 case 2:
-                do {
-                    //menu de las persianas
-                    System.out.println("Blinds control:");
-                    System.out.println("a. Open all blinds");
-                    System.out.println("b. Close all blinds");
-                    System.out.println("c. Return to main menu");
+                    do {
+                        //menu de las persianas
+                        System.out.println("Blinds control:");
+                        System.out.println("a. Open all blinds");
+                        System.out.println("b. Close all blinds");
+                        System.out.println("c. Return to main menu");
 
-                    blindsMenu = sc.nextLine();
+                        blindsMenu = sc.nextLine();
 
-                    switch (blindsMenu.toLowerCase()) {
-                        case "a":
-                            blindState = "open";
-                            System.out.println("All blinds opened.");
-                        break;
+                        switch (blindsMenu) {
+                            case "a":
+                                blindState = "open";
+                                System.out.println("All blinds opened.");
+                                break;
 
-                        case "b":
-                            blindState = "closed";
-                            System.out.println("All blinds closed.");
-                        break;
-                        }
+                            case "b":
+                                blindState = "closed";
+                                System.out.println("All blinds closed.");
+                                break;
+                            }
 
-                    System.out.println("Current blinds state: " + blindState);
+                        System.out.println("Current blinds state: " + blindState);
 
-                    } while (!blindsMenu.equalsIgnoreCase("c"));
-                break;
+                        } while (!blindsMenu.equalsIgnoreCase("c"));
+                    break;
 
                 case 3:
                     do {
@@ -234,20 +234,19 @@ public class PE_04CasconFernando {
                             case 1:
                                 lightChoice = roomChoice();
                                 lightsState(lightChoice);
-                            break;
+                                break;
 
                             case 2:
                                 allRooms();
-                            break;
+                                break;
 
                             case 3:
                                 realState();
-                            break;
+                                break;
                         }
 
                     } while (lightsMenu != 4);
-
-                break;
+                    break;
             }
             
 
@@ -286,7 +285,7 @@ public class PE_04CasconFernando {
         do {
             System.out.print("Please, choose your option (on/off): ");
             state = sc.nextLine();
-        } while (state.equals("on") &&  state.equals("off"));
+        } while (!state.equalsIgnoreCase("on") && !state.equalsIgnoreCase("off"));
 
         return state;
     }
@@ -336,19 +335,19 @@ public class PE_04CasconFernando {
         switch (option) {
             case 1: 
                 currentTemperature = 1;
-            break;
+                break;
             case 2: 
                 currentTemperature = 2;
-            break;
+                break;
             case 3: 
                 currentTemperature = -1;
-            break;
+                break;
             case 4: 
                 currentTemperature = -2;
-            break;
+                break;
             case 5:
                 currentTemperature = insertTemperature();
-            break;
+                break;
         }
         return currentTemperature;
     }
@@ -403,73 +402,49 @@ public class PE_04CasconFernando {
     /***********************
     LIGHTS FUNCTIONS
     ***********************/
-    public String lightState() {
-        String state = "";
-        System.out.println("");
-        return state;
+
+    public String toggleLight(String currentState, String newState, String roomName) {
+
+        if (currentState.equals(newState)) {
+            System.out.println(roomName + " already has the lights " + newState);
+
+        } else {
+            System.out.println(roomName + " turned " + newState + " correctly.");
+        }
+        return newState;
     }
 
     public void lightsState(int roomChoice) {
         String state = toggleState();
-        String room = "";
-        boolean comprovation = false;
 
         switch (roomChoice) {
             case 1: 
-                if (livingRoom == state) {
-                    comprovation = true;
-                }
-                livingRoom = state;
-                room = "Living Room";
-            break;
+                livingRoom = toggleLight(livingRoom, state, "Living Room"); 
+                break;
 
             case 2: 
-                if (restRoom == state) {
-                    comprovation = true;
-                }
-                restRoom = state;
-                room = "Rest Room";
-            break;
+                restRoom = toggleLight(restRoom, state, "Rest Room"); 
+                break;
 
             case 3: 
-                if (kitchen == state) {
-                    comprovation = true;
-                }
-                kitchen = state;
-                room = "Kitchen";
-            break;
+                kitchen = toggleLight(kitchen, state, "Kitchen"); 
+                break;
 
-            case 4:
-                if (room1 == state) {
-                    comprovation = true;
-                }
-                room1= state;
-                room = "Room 1";
-            break;
+            case 4: 
+                room1 = toggleLight(room1, state, "Room 1"); 
+                break;
 
             case 5: 
-                if (room2 == state) {
-                    comprovation = true;
-                }
-                room2 = state;
-                room = "Room 2";
-            break;
+                room2 = toggleLight(room2, state, "Room 2"); 
+                break;
 
-            case 6:
-                if (room3 == state) {
-                    comprovation = true;
-                }
-                room3 = state;
-                room = "Room 3";
-            break;
+            case 6: 
+                room3 = toggleLight(room3, state, "Room 3"); 
+                break;
 
-            default:
-                if (comprovation) {
-                    System.out.println(room + " has already the lights " + state);
-                } else {    
-                    System.out.println(room + " turned " + state + " correctly.");
-                }
-            break;
+            default: 
+                System.out.println("Invalid room choice."); 
+                break;
         }
     }
 
