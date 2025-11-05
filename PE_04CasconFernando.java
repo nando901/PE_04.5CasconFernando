@@ -133,64 +133,27 @@ public class PE_04CasconFernando {
                                     //adjust manually the change of every room
                                     switch (roomChoice) {
                                         case 1:
-                                            //same logic as before
-                                            if (currentTemperature > 9) {
-                                                tempLivingRoom = currentTemperature;
-
-                                            } else {
-                                                tempLivingRoom += currentTemperature;
-                                            }
-
+                                            tempLivingRoom = changeTemperature(currentTemperature, tempLivingRoom);
                                         break;
 
                                         case 2:
-                                            if (currentTemperature > 9) {
-                                                tempRestroom = currentTemperature;
-
-                                            } else {
-                                                tempRestroom += currentTemperature;
-                                            }
-                                            
+                                            tempRestroom = changeTemperature(currentTemperature, tempRestroom);
                                         break;
 
                                         case 3:
-                                            if (currentTemperature > 9) {
-                                                tempKitchen = currentTemperature;
-
-                                            } else {
-                                                tempKitchen += currentTemperature;
-                                            }
-                                            
+                                            tempKitchen = changeTemperature(currentTemperature, tempKitchen);
                                         break;
 
                                         case 4:
-                                            if (currentTemperature > 9) {
-                                                tempRoom1 = currentTemperature;
-
-                                            } else {
-                                                tempRoom1 += currentTemperature;
-                                            }
-                                            
+                                            tempRoom1 = changeTemperature(currentTemperature, tempRoom1);
                                         break;
 
                                         case 5:
-                                            if (currentTemperature > 9) {
-                                                tempRoom2 = currentTemperature;
-
-                                            } else {
-                                                tempRoom2 += currentTemperature;
-                                            }
-                                            
+                                            tempRoom2 = changeTemperature(currentTemperature, tempRoom2);
                                         break;
 
                                         case 6:
-                                            if (currentTemperature > 9) {
-                                                tempRoom3 = currentTemperature;
-
-                                            } else {
-                                                tempRoom3 += currentTemperature;
-                                            }
-                                            
+                                            tempRoom3 = changeTemperature(currentTemperature, tempRoom3);
                                         break;
                                     }
                                 }
@@ -420,6 +383,18 @@ public class PE_04CasconFernando {
         } 
 
         return currentTemperature;
+    }
+
+    //pasar como parametro el dato modificado y la habitacion y devolver la temperatura, funcion para falicitarlo
+    //probar luego
+    public int changeTemperature(int currentTemperature, int temperature) {
+        if (currentTemperature > 9) {
+            temperature = currentTemperature;
+
+        } else {
+            temperature += currentTemperature;
+        }
+        return temperature;
     }
 
     /***********************
