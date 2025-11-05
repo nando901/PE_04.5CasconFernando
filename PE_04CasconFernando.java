@@ -385,8 +385,6 @@ public class PE_04CasconFernando {
         return currentTemperature;
     }
 
-    //pasar como parametro el dato modificado y la habitacion y devolver la temperatura, funcion para falicitarlo
-    //probar luego
     public int changeTemperature(int currentTemperature, int temperature) {
         if (currentTemperature > 9) {
             temperature = currentTemperature;
