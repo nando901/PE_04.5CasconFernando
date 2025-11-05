@@ -10,7 +10,7 @@ public class PE_04CasconFernando {
     String room1 = "off";
     String room2 = "off";
     String room3 = "off";
-    
+    String allLights = "off";
     public static void main(String[] args) {
         PE_04CasconFernando p = new PE_04CasconFernando();
         p.principal();
@@ -274,7 +274,11 @@ public class PE_04CasconFernando {
                             break;
 
                             case 2:
+                                allRooms();
+                            break;
 
+                            case 3:
+                                realState();
                             break;
                         }
 
@@ -496,19 +500,25 @@ public class PE_04CasconFernando {
         }
     }
 
-    public static void allRooms() {
-        System.out.println("ii. Manual - turn on or turn off (on/off): ");
+    public void allRooms() {
+        System.out.println("Manual - turn on or turn off (on/off): ");
         allLights = sc.nextLine();
         System.out.println("All rooms turned " + allLights + " correctly.");
 
         livingRoom = allLights;
-        restroom = allLights;
+        restRoom = allLights;
         kitchen = allLights;
         room1 = allLights;
         room2 = allLights;
-        room3 = allLights;
-        
+        room3 = allLights;  
     }
 
-
+    public void realState() {
+        System.out.println("Living room: " + livingRoom);
+        System.out.println("Kitchen: " + kitchen);
+        System.out.println("Restroom: " + restRoom);
+        System.out.println("Room 1: " + room1);
+        System.out.println("Room 2: " + room2);
+        System.out.println("Room 3: " + room3);
+    }
 }
