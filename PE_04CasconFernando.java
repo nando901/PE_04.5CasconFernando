@@ -29,8 +29,24 @@ public class PE_04CasconFernando {
         int tempRoom1 = 20;                     //
         int tempRoom2 = 20;                     //
         int tempRoom3 = 20;                     //
-        String blindsMenu = "";                 //variables for blinds
-        String blindState = "";                 //
+        int blindsMenu = 0;                     //variables for blinds
+        int blindLivingRoom = 0;                //
+        int blindRestroom = 0;                  //
+        int blindKitchen = 0;                   //
+        int blindRoom1 = 0;                     //
+        int blindRoom2 = 0;                     //
+        int blindRoom3 = 0;                     //
+        int blindsState = 0;                    //
+        int seconds = 0, minutes = 0, hours = 0;
+        int blindsRoom = 0;
+
+        for (hours = 0; hours <= 23; hours ++) {
+            for (minutes = 0; minutes <= 59; minutes ++) {
+                for (seconds = 0; seconds <= 59; seconds ++) {
+
+                }
+            }
+        }
 
 
         System.out.println("Welcome!");
@@ -178,36 +194,81 @@ public class PE_04CasconFernando {
 
                 case 2:
                     do {
-                        //menu de las persianas
+                        //blinds menu
                         System.out.println("Blinds control:");
-                        System.out.println("a. Open all blinds");
-                        System.out.println("b. Close all blinds");
-                        System.out.println("c. Return to main menu");
+                        System.out.println("1. Controll all blinds");
+                        System.out.println("2. Controll a room");
+                        System.out.println("3. View current state");
+                        System.out.println("4. Programm an hour");
+                        System.out.println("5. Return to main menu");
+                        
+                        while (validation) {
+                            try {
+                                blindsMenu = sc.nextInt();
+                                sc.nextLine();
 
-                        blindsMenu = sc.nextLine();
+                                if (blindsMenu < 1 || blindsMenu > 4) {
+                                    System.out.println("Error, insert a valid option.");
+
+                                } else {
+                                    validation = false;
+                                }
+
+                            } catch (InputMismatchException e) {
+                                System.out.println("Error, insert a valid format.");
+                                sc.nextLine();
+                            }
+                        }
+                        validation = true;
 
                         switch (blindsMenu) {
-                            case "a":
-                                blindState = "open";
-                                System.out.println("All blinds opened.");
+                            case 1:
+                                blindsState = askBlindsPosition();
+                                blindLivingRoom = blindRestroom =  blindKitchen = blindRoom1 = blindRoom2 = blindRoom3 = blindsState;
                                 break;
 
-                            case "b":
-                                blindState = "closed";
-                                System.out.println("All blinds closed.");
+                            case 2:
+                                blindsRoom = roomChoice();
+
+                                switch (blindsRoom) {
+                                    case 1:
+                                        blindLivingRoom = blindsBucle(blindLivingRoom, "Livingroom");
+                                        break;
+                                    case 2:
+                                        blindRestroom = blindsBucle(blindRestroom, "Restroom");
+                                        break;
+                                    case 3:
+                                        blindKitchen = blindsBucle(blindKitchen, "Kitchen");
+                                        break;
+                                    case 4:
+                                        blindRoom1 = blindsBucle(blindRoom1, "Room 1");
+                                        break;
+                                    case 5:
+                                        blindRoom2 = blindsBucle(blindRoom2, "Room 2");
+                                        break;
+                                    case 6:
+                                        blindRoom3 = blindsBucle(blindRoom3, "Room 3");
+                                        break;
+                                }
+                                break;
+                            case 3: 
+                                System.out.println("Livingroom's blind Position: " + blindLivingRoom);
+                                System.out.println("Restroom's blind Position: " + blindRestroom);
+                                System.out.println("Kitchen's blind Position: " + blindKitchen);
+                                System.out.println("Room 1 blind Position: " + blindRoom1);
+                                System.out.println("Room 2 blind Position: " + blindRoom2);
+                                System.out.println("Room 3 blind Position: " + blindRoom3);
                                 break;
                             }
 
-                        System.out.println("Current blinds state: " + blindState);
-
-                        } while (!blindsMenu.equalsIgnoreCase("c"));
+                        } while (blindsMenu != 5);
                     break;
 
                 case 3:
                     do {
-                        System.out.println("Lights control:");
-                        System.out.println("1. Control a room. ");
-                        System.out.println("2. Control all the rooms. ");
+                        System.out.println("Lights controll:");
+                        System.out.println("1. Controll a room. ");
+                        System.out.println("2. Controll all the rooms. ");
                         System.out.println("3. Show the real state of the lights. ");
                         System.out.println("4. Exit. ");
 
@@ -285,6 +346,10 @@ public class PE_04CasconFernando {
         do {
             System.out.print("Please, choose your option (on/off): ");
             state = sc.nextLine();
+
+            if (!state.equalsIgnoreCase("on") && !state.equalsIgnoreCase("off")) {
+                System.out.println("Error, insert a valid option.");
+            }
         } while (!state.equalsIgnoreCase("on") && !state.equalsIgnoreCase("off"));
 
         return state;
@@ -398,6 +463,51 @@ public class PE_04CasconFernando {
     BLINDS FUNCTIONS
     ***********************/
 
+    public int askBlindsPosition() {
+        int blindsPosition = 0;
+
+        System.out.println("Please, insert a position from 0 to 10 (10 - Closed / 0 - Open):");
+
+        do {
+            try {
+                blindsPosition = sc.nextInt();
+                sc.nextLine();
+
+                if (blindsPosition < 0 || blindsPosition > 10) {
+                    System.out.println("Error, the range must be between 0 and 10.");
+                } 
+
+            } catch (InputMismatchException e) {
+                System.out.println("Error, insert a valid format.");
+                sc.nextLine();
+            }
+
+        } while (blindsPosition < 0 || blindsPosition > 10);
+
+        return blindsPosition;
+    }
+
+    public int blindsBucle(int currentPosition, String room) {
+        int newPosition = askBlindsPosition();
+
+        if (currentPosition < newPosition) {
+            System.out.println("Closing " + room + "'s blind...");
+
+            for (int i = currentPosition; i <= newPosition; i++) {
+                System.out.println("Position: " + i + "/10");
+            }
+
+        } else if (currentPosition > newPosition) {
+            System.out.println("Opening " + room + "'s blind...");
+
+            for (int i = currentPosition; i >= newPosition; i--) {
+                System.out.println("Position: " + i + "/10");
+            }
+        } else {
+            System.out.println(room + "'s blind is already in position " + currentPosition);
+        }
+        return newPosition;
+    }
 
     /***********************
     LIGHTS FUNCTIONS
