@@ -37,7 +37,6 @@ public class PE_04CasconFernando {
         int blindRoom2 = 0;                     //
         int blindRoom3 = 0;                     //
         int blindsState = 0;                    //
-        int seconds = 0, minutes = 0, hours = 0;
         int blindsRoom = 0;
 
         System.out.println("Welcome!");
@@ -176,13 +175,9 @@ public class PE_04CasconFernando {
                                 System.out.println("Room 2: " + tempRoom2 + "ºC");
                                 System.out.println("Room 3: " + tempRoom3 + "ºC");
                                 break;
-
-                            case 5:
-                                break;
                         }  
                     } while (temperatureOptions != 6);
                     break;
-
                 case 2:
                     do {
                         //blinds menu
@@ -300,10 +295,7 @@ public class PE_04CasconFernando {
                     } while (lightsMenu != 4);
                     break;
             }
-            
-
         } while (houseOptions != 4);
-
         sc.close();
     }
 
@@ -346,10 +338,18 @@ public class PE_04CasconFernando {
                     secEnd = 59;
                 }
 
-                for (s = secStart; s <= secEnd; s++) {
-                    System.out.printf("%02d:%02d:%02d%n", h, m, s);
+                    for (s = secStart; s <= secEnd; s++) {
+                    // Mostrar al comienzo de cada hora (por ejemplo: 17:00:00, 18:00:00, etc.)
+                    if (m == 0 && s == 0) {
+                        System.out.printf("%02d:00:00%n", h);
+                    }
+
+                    // Mostrar la hora final exacta (por ejemplo: 21:45:23)
+                    if (h == hourFinish && m == minFinish && s == secFinish) {
+                        System.out.printf("%02d:%02d:%02d%n", h, m, s);
+                    }
                 }
-            }
+            }   
         }
     }
 
