@@ -40,15 +40,6 @@ public class PE_04CasconFernando {
         int seconds = 0, minutes = 0, hours = 0;
         int blindsRoom = 0;
 
-        for (hours = 0; hours <= 23; hours ++) {
-            for (minutes = 0; minutes <= 59; minutes ++) {
-                for (seconds = 0; seconds <= 59; seconds ++) {
-
-                }
-            }
-        }
-
-
         System.out.println("Welcome!");
         //when the option is 4 you exit of the main menu
         do {
@@ -196,10 +187,10 @@ public class PE_04CasconFernando {
                     do {
                         //blinds menu
                         System.out.println("Blinds control:");
-                        System.out.println("1. Controll all blinds");
-                        System.out.println("2. Controll a room");
+                        System.out.println("1. Control all blinds");
+                        System.out.println("2. Control a room");
                         System.out.println("3. View current state");
-                        System.out.println("4. Programm an hour");
+                        System.out.println("4. Program an hour");
                         System.out.println("5. Return to main menu");
                         
                         while (validation) {
@@ -207,7 +198,7 @@ public class PE_04CasconFernando {
                                 blindsMenu = sc.nextInt();
                                 sc.nextLine();
 
-                                if (blindsMenu < 1 || blindsMenu > 4) {
+                                if (blindsMenu < 1 || blindsMenu > 5) {
                                     System.out.println("Error, insert a valid option.");
 
                                 } else {
@@ -314,6 +305,52 @@ public class PE_04CasconFernando {
         } while (houseOptions != 4);
 
         sc.close();
+    }
+
+    public void timer(int hourBegin, int hourFinish, int minBegin, int minFinish, int secBegin, int secFinish) {
+        int h = 0;
+        int m = 0;
+        int s = 0;
+        int minStart = 0;
+        int minEnd = 0;
+        int secStart = 0;
+        int secEnd = 0;
+
+        for (h = hourBegin; h <= hourFinish; h++) {
+
+            // Determinar el minuto inicial y final según la hora actual
+            if (h == hourBegin) {
+                minStart = minBegin;
+            } else {
+                minStart = 0;
+            }
+
+            if (h == hourFinish) {
+                minEnd = minFinish;
+            } else {
+                minEnd = 59;
+            }
+
+            for (m = minStart; m <= minEnd; m++) {
+
+                // Determinar los segundos según la hora y el minuto actuales
+                if (h == hourBegin && m == minBegin) {
+                    secStart = secBegin;
+                } else {
+                    secStart = 0;
+                }
+
+                if (h == hourFinish && m == minFinish) {
+                    secEnd = secFinish;
+                } else {
+                    secEnd = 59;
+                }
+
+                for (s = secStart; s <= secEnd; s++) {
+                    System.out.printf("%02d:%02d:%02d%n", h, m, s);
+                }
+            }
+        }
     }
 
     public int roomChoice() {
