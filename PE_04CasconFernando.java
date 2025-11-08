@@ -38,6 +38,8 @@ public class PE_04CasconFernando {
         int blindRoom3 = 0;                     //
         int blindsState = 0;                    //
         int blindsRoom = 0;
+        int hourInit = 0, minInit = 0;
+        int hourFinish = 0, minFinish = 0;
 
         System.out.println("Welcome!");
         //when the option is 4 you exit of the main menu
@@ -175,6 +177,37 @@ public class PE_04CasconFernando {
                                 System.out.println("Room 2: " + tempRoom2 + "ºC");
                                 System.out.println("Room 3: " + tempRoom3 + "ºC");
                                 break;
+                            case 5:
+                                do {
+                                    System.out.print("Enter the current hour (0-23): ");
+                                    hourInit = sc.nextInt();
+                                } while (hourInit < 0 || hourInit > 23);
+
+                                do {
+                                    System.out.print("Enter the current minute (0-59): ");
+                                    minInit = sc.nextInt();
+                                } while (minInit < 0 || minInit > 59);
+
+                                do {
+                                    System.out.print("Enter the finishing hour (0-23): ");
+                                    hourFinish = sc.nextInt();
+                                } while (hourFinish < 0 || hourFinish > 23);
+
+                                do {
+                                    System.out.print("Enter the finishing minute (0-59): ");
+                                    minFinish = sc.nextInt();
+                                } while (minFinish < 0 || minFinish > 59);
+
+                                do {
+                                    System.out.print("Enter the desired temperature (10-35): ");
+                                    currentTemperature = sc.nextInt();
+                                } while (currentTemperature < 10 || currentTemperature > 35);
+
+                                timer(hourInit, hourFinish, minInit, minFinish);
+                                System.out.println("Temperature changed to " + currentTemperature + "ºC in all rooms.");
+
+                                tempLivingRoom = tempRestroom = tempKitchen = tempRoom1 =  tempRoom2 = tempRoom3 = currentTemperature;
+                                break;
                         }  
                     } while (temperatureOptions != 6);
                     break;
@@ -245,6 +278,35 @@ public class PE_04CasconFernando {
                                 System.out.println("Room 2 blind Position: " + blindRoom2);
                                 System.out.println("Room 3 blind Position: " + blindRoom3);
                                 break;
+                            case 4:
+                            do {
+                                System.out.print("Enter the current hour (0-23): ");
+                                hourInit = sc.nextInt();
+                            } while (hourInit < 0 || hourInit > 23);
+
+                            do {
+                                System.out.print("Enter the current minute (0-59): ");
+                                minInit = sc.nextInt();
+                            } while (minInit < 0 || minInit > 59);
+
+                            do {
+                                System.out.print("Enter the finishing hour (0-23): ");
+                                hourFinish = sc.nextInt();
+                            } while (hourFinish < 0 || hourFinish > 23);
+
+                            do {
+                                System.out.print("Enter the finishing minute (0-59): ");
+                                minFinish = sc.nextInt();
+                            } while (minFinish < 0 || minFinish > 59);
+
+                            timer(hourInit, hourFinish, minInit, minFinish);
+
+                            blindsState = askBlindsPosition();
+
+                            blindLivingRoom = blindRestroom = blindKitchen = blindRoom1 = blindRoom2 = blindRoom3 = blindsState;
+
+                            System.out.println("Blinds moved to position " + blindsState + " in all rooms.");
+                                break;
                             }
 
                         } while (blindsMenu != 5);
@@ -290,6 +352,44 @@ public class PE_04CasconFernando {
                             case 3:
                                 realState();
                                 break;
+                            case 4:
+                                do {
+                                    System.out.print("Enter the current hour (0-23): ");
+                                    hourInit = sc.nextInt();
+                                } while (hourInit < 0 || hourInit > 23);
+
+                                do {
+                                    System.out.print("Enter the current minute (0-59): ");
+                                    minInit = sc.nextInt();
+                                } while (minInit < 0 || minInit > 59);
+
+                                do {
+                                    System.out.print("Enter the finishing hour (0-23): ");
+                                    hourFinish = sc.nextInt();
+                                } while (hourFinish < 0 || hourFinish > 23);
+
+                                do {
+                                    System.out.print("Enter the finishing minute (0-59): ");
+                                    minFinish = sc.nextInt();
+                                } while (minFinish < 0 || minFinish > 59);
+
+                                sc.nextLine(); 
+
+                                do {
+                                    System.out.print("Turn on or turn off lights? (on/off): ");
+                                    allLights = sc.nextLine();
+
+                                    if (!allLights.equalsIgnoreCase("on") && !allLights.equalsIgnoreCase("off")) {
+                                        System.out.println("Error, enter 'on' or 'off'.");
+                                    }
+                                } while (!allLights.equalsIgnoreCase("on") && !allLights.equalsIgnoreCase("off"));
+
+                                timer(hourInit, hourFinish, minInit, minFinish);
+                                System.out.println("Lights turned " + allLights + " in all rooms.");
+
+                                livingRoom = restRoom = kitchen = room1 = room2 = room3 = allLights;
+
+                                break;
                         }
 
                     } while (lightsMenu != 4);
@@ -299,7 +399,7 @@ public class PE_04CasconFernando {
         sc.close();
     }
 
-    public void timer(int hourBegin, int hourFinish, int minBegin, int minFinish, int secBegin, int secFinish) {
+    public void timer(int hourBegin, int hourFinish, int minBegin, int minFinish) {
         int h = 0;
         int m = 0;
         int s = 0;
@@ -307,10 +407,10 @@ public class PE_04CasconFernando {
         int minEnd = 0;
         int secStart = 0;
         int secEnd = 0;
+        int secBegin = 0;
+        int secFinish = 0;
 
         for (h = hourBegin; h <= hourFinish; h++) {
-
-            // Determinar el minuto inicial y final según la hora actual
             if (h == hourBegin) {
                 minStart = minBegin;
             } else {
@@ -324,8 +424,6 @@ public class PE_04CasconFernando {
             }
 
             for (m = minStart; m <= minEnd; m++) {
-
-                // Determinar los segundos según la hora y el minuto actuales
                 if (h == hourBegin && m == minBegin) {
                     secStart = secBegin;
                 } else {
